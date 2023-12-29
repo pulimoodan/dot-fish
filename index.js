@@ -24,8 +24,35 @@ app.use("/api/orders", OrderRoute);
 app.use("/api/settings", SettingRoute);
 app.use("/api/categories", CategoryRoute);
 
-app.get("/admin/*", express.static(resolve("./admin", "dist")));
-app.get("/*", express.static(resolve("./client", "dist")));
+// admin
+app.use(
+  "/admin",
+  express.static(resolve("./admin", "dist"), {
+    setHeaders: (res, filePath) => {
+      if (filePath.endsWith(".js")) {
+        res.setHeader("Content-Type", "text/javascript");
+      }
+    },
+  })
+);
+app.get("/admin/*", (req, res) => {
+  res.sendFile(resolve("./admin/dist", "index.html"));
+});
+
+// client
+app.use(
+  "/",
+  express.static(resolve("./client", "dist"), {
+    setHeaders: (res, filePath) => {
+      if (filePath.endsWith(".js")) {
+        res.setHeader("Content-Type", "text/javascript");
+      }
+    },
+  })
+);
+app.get("/*", (req, res) => {
+  res.sendFile(resolve("./client/dist", "index.html"));
+});
 
 app.listen(port, () => {
   console.log(`Server listening on port ${port}`);

@@ -1,0 +1,3 @@
+-- AlterTable
+ALTER TABLE "Order" ADD COLUMN     "payment" TEXT NOT NULL DEFAULT 'cash',
+ADD COLUMN     "slot" INTEGER NOT NULL DEFAULT 1;

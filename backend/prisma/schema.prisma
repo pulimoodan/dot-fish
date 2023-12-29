@@ -1,0 +1,87 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Product {
+  id       String  @id @default(uuid())
+  name     String
+  purchase Float
+  sale     Float
+  cleaning Boolean
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  category   Category @relation(fields: [categoryId], references: [id])
+  categoryId String
+
+  OrderItem OrderItem[]
+}
+
+model Category {
+  id   String @id @default(uuid())
+  name String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  Product Product[]
+}
+
+model Customer {
+  id       String @id @default(uuid())
+  name     String
+  mobile   String @unique
+  address  String
+  location String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  Order Order[]
+}
+
+model Order {
+  id String @id @default(uuid())
+
+  customer   Customer @relation(fields: [customerId], references: [id])
+  customerId String
+
+  items OrderItem[]
+  total Float
+
+  payment String @default("cash")
+  slot    Int    @default(1)
+  status  String @default("pending")
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model OrderItem {
+  id String @id @default(uuid())
+
+  product   Product @relation(fields: [productId], references: [id])
+  productId String
+
+  quantity Float
+  Order    Order[]
+
+  @@unique([productId, quantity])
+}
+
+model Setting {
+  id        String   @id @default(uuid())
+  margin    Float
+  cleaning  Float
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}

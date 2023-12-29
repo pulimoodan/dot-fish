@@ -4,6 +4,9 @@
     "description": "CRUD Express Prisma - Backend",
     "type": "module",
     "main": "index.js",
+    "engines": {
+        "node": "18.18.0"
+    },
     "scripts": {
         "dev": "nodemon index",
         "start": "node index.js"

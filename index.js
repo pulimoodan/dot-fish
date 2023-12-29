@@ -24,8 +24,8 @@ app.use("/api/orders", OrderRoute);
 app.use("/api/settings", SettingRoute);
 app.use("/api/categories", CategoryRoute);
 
-app.get("/admin/*", express.static(resolve("../frontend", "dist")));
-app.get("/*", express.static(resolve("../client", "dist")));
+app.get("/admin/*", express.static(resolve("./admin", "dist")));
+app.get("/*", express.static(resolve("./client", "dist")));
 
 app.listen(port, () => {
   console.log(`Server listening on port ${port}`);

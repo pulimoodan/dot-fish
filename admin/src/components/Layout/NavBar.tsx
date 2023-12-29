@@ -15,6 +15,7 @@ function NavBar() {
           <Nav>
             <Nav.Link href="/admin">Home</Nav.Link>
             <Nav.Link href="/admin/products">Products</Nav.Link>
+            <Nav.Link href="/admin/categories">Categories</Nav.Link>
             <Nav.Link href="/admin/customers">Customers</Nav.Link>
             <Nav.Link href="/admin/orders">Orders</Nav.Link>
             <Nav.Link href="/admin/settings">Settings</Nav.Link>
